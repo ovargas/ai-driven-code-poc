@@ -1,6 +1,7 @@
 package product
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -72,8 +73,12 @@ func TestService_CRUD(t *testing.T) {
 
 func TestService_GetAll(t *testing.T) {
 	s := NewService(NewInMemoryRepository())
-	s.Create(&Product{Name: "A", Price: 1})
-	s.Create(&Product{Name: "B", Price: 2})
+	p1, err := s.Create(&Product{Name: "A", Price: 1})
+	assert.NoError(t, err)
+	assert.NotNil(t, p1)
+	p2, err := s.Create(&Product{Name: "B", Price: 2})
+	assert.NoError(t, err)
+	assert.NotNil(t, p2)
 	all, err := s.GetAll()
 	if err != nil || len(all) != 2 {
 		t.Fatalf("GetAll failed: %v", err)
