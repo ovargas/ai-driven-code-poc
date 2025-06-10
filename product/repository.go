@@ -2,6 +2,7 @@ package product
 
 import (
 	"errors"
+	"log"
 	"sync"
 
 	"gorm.io/gorm"
@@ -84,7 +85,10 @@ type GormRepository struct {
 
 func NewGormRepository(db *gorm.DB) *GormRepository {
 	// Auto-migrate the Product model
-	db.AutoMigrate(&Product{})
+	err := db.AutoMigrate(&Product{})
+	if err != nil {
+		log.Fatal(err)
+	}
 	return &GormRepository{db: db}
 }
 
