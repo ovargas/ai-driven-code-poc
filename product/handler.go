@@ -61,7 +61,7 @@ func (h *Handler) createProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(created)
+	_ = json.NewEncoder(w).Encode(created)
 }
 
 func (h *Handler) updateProduct(w http.ResponseWriter, r *http.Request, id string) {
@@ -76,7 +76,7 @@ func (h *Handler) updateProduct(w http.ResponseWriter, r *http.Request, id strin
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(updated)
+	_ = json.NewEncoder(w).Encode(updated)
 }
 
 func (h *Handler) deleteProduct(w http.ResponseWriter, r *http.Request, id string) {
@@ -94,7 +94,7 @@ func (h *Handler) getProduct(w http.ResponseWriter, r *http.Request, id string) 
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(p)
+	_ = json.NewEncoder(w).Encode(p)
 }
 
 func (h *Handler) getAllProducts(w http.ResponseWriter, r *http.Request) {
@@ -104,5 +104,5 @@ func (h *Handler) getAllProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(products)
+	_ = json.NewEncoder(w).Encode(products)
 }

@@ -23,7 +23,7 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 	resp := map[string]interface{}{
 		"timestamp": time.Now().Format(time.RFC3339),
 	}
-	json.NewEncoder(w).Encode(resp)
+	_ = json.NewEncoder(w).Encode(resp)
 }
 
 func main() {
@@ -33,8 +33,9 @@ func main() {
 	flag.Parse()
 
 	server := &http.Server{
-		Addr:    ":8080",
-		Handler: nil,
+		ReadHeaderTimeout: 10 * time.Second,
+		Addr:              ":8080",
+		Handler:           nil,
 	}
 
 	http.HandleFunc("/health", healthHandler)
