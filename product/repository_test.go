@@ -1,6 +1,7 @@
 package product
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -50,8 +51,8 @@ func TestInMemoryRepository_CRUD(t *testing.T) {
 
 func TestInMemoryRepository_GetAll(t *testing.T) {
 	repo := NewInMemoryRepository()
-	repo.Create(&Product{ID: "1", Name: "A", Price: 1})
-	repo.Create(&Product{ID: "2", Name: "B", Price: 2})
+	assert.NoError(t, repo.Create(&Product{ID: "1", Name: "A", Price: 1}))
+	assert.NoError(t, repo.Create(&Product{ID: "2", Name: "B", Price: 2}))
 	all, err := repo.GetAll()
 	if err != nil || len(all) != 2 {
 		t.Fatalf("GetAll failed: %v", err)

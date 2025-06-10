@@ -2,6 +2,7 @@ package product
 
 import (
 	"encoding/json"
+	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -76,7 +77,7 @@ func TestHandler_ProductByID(t *testing.T) {
 	w := httptest.NewRecorder()
 	handler.handleProducts(w, req)
 	var p Product
-	json.NewDecoder(w.Result().Body).Decode(&p)
+	assert.NoError(t, json.NewDecoder(w.Result().Body).Decode(&p))
 
 	// Get by ID
 	req = httptest.NewRequest(http.MethodGet, "/product/"+p.ID, nil)
@@ -87,7 +88,7 @@ func TestHandler_ProductByID(t *testing.T) {
 		t.Fatalf("expected 200, got %d", resp.StatusCode)
 	}
 	var got Product
-	json.NewDecoder(resp.Body).Decode(&got)
+	assert.NoError(t, json.NewDecoder(resp.Body).Decode(&got))
 	if got.ID != p.ID {
 		t.Fatalf("expected ID %s, got %s", p.ID, got.ID)
 	}
@@ -101,7 +102,7 @@ func TestHandler_UpdateProduct(t *testing.T) {
 	w := httptest.NewRecorder()
 	handler.handleProducts(w, req)
 	var p Product
-	json.NewDecoder(w.Result().Body).Decode(&p)
+	assert.NoError(t, json.NewDecoder(w.Result().Body).Decode(&p))
 
 	// Update
 	updateBody := `{"name":"Updated","description":"New","price":20}`
@@ -113,7 +114,7 @@ func TestHandler_UpdateProduct(t *testing.T) {
 		t.Fatalf("expected 200, got %d", resp.StatusCode)
 	}
 	var updated Product
-	json.NewDecoder(resp.Body).Decode(&updated)
+	assert.NoError(t, json.NewDecoder(resp.Body).Decode(&updated))
 	if updated.Name != "Updated" {
 		t.Fatalf("expected name Updated, got %s", updated.Name)
 	}
@@ -127,7 +128,7 @@ func TestHandler_DeleteProduct(t *testing.T) {
 	w := httptest.NewRecorder()
 	handler.handleProducts(w, req)
 	var p Product
-	json.NewDecoder(w.Result().Body).Decode(&p)
+	assert.NoError(t, json.NewDecoder(w.Result().Body).Decode(&p))
 
 	// Delete
 	req = httptest.NewRequest(http.MethodDelete, "/product/"+p.ID, nil)
