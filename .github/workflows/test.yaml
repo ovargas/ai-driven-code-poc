@@ -26,8 +26,17 @@ jobs:
         with:
           go-version-file: 'go.mod'
           check-latest: true
-      - name: Run short tests
-        run: go test -short ./...
+      - name: Run tests and generate coverage
+        run: go test -coverprofile=coverage.out -covermode=atomic ./...
+      - name: Generate HTML coverage report
+        run: go tool cover -html=coverage.out -o coverage.html
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: | 
+            coverage.out
+            coverage.html
 
   gosec:
     permissions:
