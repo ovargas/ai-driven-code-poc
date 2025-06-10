@@ -1,0 +1,36 @@
+### Create a new product
+POST http://localhost:8080/product
+Content-Type: application/json
+
+{
+  "name": "Test Product",
+  "description": "A product for testing",
+  "price": 19.99
+}
+
+###
+
+### Get all products
+GET http://localhost:8080/product
+
+###
+
+### Get a product by ID (replace {{id}} with actual ID)
+GET http://localhost:8080/product/{{id}}
+
+###
+
+### Update a product (replace {{id}} with actual ID)
+PATCH http://localhost:8080/product/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Updated Product Name",
+  "description": "Updated description",
+  "price": 29.99
+}
+
+###
+
+### Delete a product (replace {{id}} with actual ID)
+DELETE http://localhost:8080/product/{{id}}
