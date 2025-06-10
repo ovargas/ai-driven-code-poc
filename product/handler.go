@@ -61,7 +61,7 @@ func (h *Handler) createProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	_ = json.NewEncoder(w).Encode(created)
+	json.NewEncoder(w).Encode(created)
 }
 
 func (h *Handler) updateProduct(w http.ResponseWriter, r *http.Request, id string) {
